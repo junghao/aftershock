@@ -2,6 +2,8 @@
 
 Generate aftershock forecasts for earthquake events.Based on code supplied by Annemarie Christophersen
 
+Page URL: https://junghao.github.io/aftershock/AfterShock_Beta.html
+
 ### Architecture
 
 To do
