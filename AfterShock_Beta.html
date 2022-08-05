@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+  <link rel="stylesheet" href="bootstrap/bootstrap.v5.min.css">
+  <link rel="stylesheet" href="bootstrap/geonet.v7.css">
+  
+  </head>
+  <body>
+    <div id="QuakeInfo">
+      <h2>AfterShock calculator for GNS Science use only</h2>
+  
+      <input
+        type="text"
+        id="QuakeID"
+        value="2022p138188"
+        pattern="[0-9A-Za-z]{11}"
+      /> 
+      <label for="QuakeID">Enter a quakeID then select <i>Load Quake</i> to retrieve the quake
+        parameters</label>
+      <button type="submit" id="loadQ" onclick="loadQuake(getQuake)" />
+    </div>
+    <div id="Params"
+      <p>Update any of the parameters below before hitting <i>Calculate</i></p>
+      <label for="mag">MAG</label
+      ><input type="text" id="mag" onchange="clearResults()" /> Quake
+      <label for="quakeTime">Quake Time</label
+      ><input type="datetime" id="quakeTime" onchange="clearResults()" /> <br />
+      <label for="startTime">Start Time</label>
+      <input type="datetime" id="startTime" onchange="clearResults()" />
+      <label for="duration">forecast length (days)</label> length
+      <input
+        type="number"
+        id="duration"
+        value="30"
+        min="1"
+        max="730"
+        step="1"
+        onchange="clearResults()"
+      />
+      <br /><br />
+      <label for="nz">NZ generic</label>
+      <input
+        type="radio"
+        id="nz"
+        name="model"
+        checked
+        onchange="clearResults(1)"
+      />
+      <br /><label for="sz">Subduction zone</label
+      ><input type="radio" id="sz" name="model" onchange="clearResults(1)" />
+      <br /><label for="cm">Custom</label
+      ><input
+        type="radio"
+        id="cm"
+        name="model"
+        label="Custom"
+        onchange="clearResults(1)"
+      />
+      <br /><label for="a">a</label
+      ><input
+        type="number"
+        min="-2"
+        max="-0.1"
+        step="0.01"
+        id="a"
+        value="-1.59"
+        disabled
+        onchange="clearResults(1)"
+      />
+      <label for="b">b</label
+      ><input
+        type="number"
+        min="0.1"
+        max="2"
+        step="0.01"
+        id="b"
+        value="1.03"
+        disabled
+        onchange="clearResults(1)"
+      />
+      <br /><label for="c">c</label
+      ><input
+        type="number"
+        min="0.001"
+        max="0.1"
+        step="0.001"
+        id="c"
+        value="0.04"
+        disabled
+        onchange="clearResults(1)"
+      />
+      <label for="p">p</label
+      ><input
+        type="number"
+        min="0.5"
+        max="2"
+        step="0.01"
+        id="p"
+        value="1.07"
+        disabled
+        onchange="clearResults(1)"
+      />
+      <br />
+
+      <br /><label for="M1">Mag Range 1</label>
+      <input
+        type="number"
+        min="1"
+        max="8"
+        step="1"
+        id="M1"
+        onchange="clearResults()"
+      />
+      <br /><label for="M2">Mag Range 2</label>
+      <input
+        type="number"
+        min="1"
+        max="7"
+        step="1"
+        id="M2"
+        onchange="clearResults()"
+      />
+      <br /><label for="M3">Mag Range 3</label>
+      <input
+        type="number"
+        min="1"
+        max="6"
+        step="1"
+        id="M3"
+        onchange="clearResults()"
+      />
+
+      <br />
+      <button type="submit" id="doAfters" disabled onclick="doCalc()"></button>
+      <label for="doAfters">Calculate</label>
+      <table class="markdown-body">
+        <tbody>
+          <tr>
+            <td colspan="1" id="qID"></td>
+            <td colspan="3" id="Range3">Mag range 3</td>
+            <td colspan="3" id="Range2">Mag range 2</td>
+            <td colspan="3" id="Range1">Mag range 1</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>Average number</td>
+            <td>Range *</td>
+            <td>Probability of 1 or more</td>
+            <td>Average number</td>
+            <td>Range *</td>
+            <td>Probability of 1 or more</td>
+            <td>Average number</td>
+            <td>Range *</td>
+            <td>Probability of 1 or more</td>
+          </tr>
+          <tr>
+            <td id="within">within nn days</td>
+            <td id="M3R"></td>
+            <td id="M3A"></td>
+            <td id="M3P">%</td>
+            <td id="M2R"></td>
+            <td id="M2A"></td>
+            <td id="M2P">%</td>
+            <td id="M1R"></td>
+            <td id="M1A"></td>
+            <td id="M1P">%</td>
+          </tr>
+        </tbody>
+      </table>
+      <p id="info"></p>
+      <button type="submit" onclick="window.print()">Print this page</button>
+    </div>
+  <script src="aftershock.js"></script>
+
+
+  </body>
+</html>
